@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     application
 
@@ -17,8 +19,12 @@ repositories {
 
 val kotlinPluginVersion: String by System.getProperties()
 val benManesVersionsPluginVersion: String by System.getProperties()
+
 val quarkusPluginVersion: String by System.getProperties()
 val shadowPluginVersion: String by System.getProperties()
+
+val jvmTargetVersion: String by System.getProperties()
+val kotlinApiVersion: String by System.getProperties()
 
 dependencies {
     // Kotlin plugin
