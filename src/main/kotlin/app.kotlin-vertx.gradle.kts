@@ -30,9 +30,9 @@ fun logVersionAdjustment(adjustingFor: String, adjustingTo: String) {
 }
 
 dependencies {
-    "implementation"("io.vertx:vertx-core:$vertXVersion")
-    "implementation"("io.vertx:vertx-lang-kotlin:$vertXVersion")
-    "implementation"("io.vertx:vertx-lang-kotlin-coroutines:$vertXVersion")
+    "api"("io.vertx:vertx-core:$vertXVersion")
+    "api"("io.vertx:vertx-lang-kotlin:$vertXVersion")
+    "api"("io.vertx:vertx-lang-kotlin-coroutines:$vertXVersion")
 
     // Testing Vert.x
     "testImplementation"("io.vertx:vertx-junit5:$vertXVersion")
