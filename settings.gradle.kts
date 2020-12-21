@@ -1,8 +1,10 @@
-logger.lifecycle("\n>>> Running settings.gradle in buildSrc\n")
+import org.gradle.util.GUtil.loadProperties
 
-bootstrapProperties()
+logger.lifecycle("\n>>> Running settings.gradle.kts in buildSrc\n")
 
 rootProject.name = "buildSrc"
+
+bootstrapProperties()
 
 pluginManagement {
     repositories {
@@ -26,25 +28,30 @@ pluginManagement {
  * This makes the gradle.properties file available to buildSrc
  */
 fun bootstrapProperties() {
-    val rootProjectPath = rootDir.parentFile.absolutePath
-    logger.lifecycle("  > bootstrapping gradle.properties files from root project: $rootProjectPath")
-    org.gradle.util.GUtil.loadProperties(file("$rootProjectPath/gradle.properties"))
+    val useCurrentProject: String by System.getProperties()
+    val rootProjectPath = if (useCurrentProject == "true") rootDir.absolutePath else rootDir.parentFile.absolutePath
+    val gradlePropertiesFilePath = rootProjectPath.plus("/gradle.properties")
+    logger.lifecycle("  > bootstrapping gradle.properties from: $gradlePropertiesFilePath")
+
+    loadProperties(file(gradlePropertiesFilePath))
         .apply {
             filter { it.key.toString().startsWith("systemProp.") }
                 .forEach {
                     logger.debug("    + adding property: $it")
                     it.key.toString().replace("systemProp.", "")
-                        .apply { System.getProperties()[this] = it.value }
+                        .apply { System.setProperty(this, it.value.toString()) }
                 }
         }
-    logger.lifecycle("  < done loading properties from root gradle.properties...")
+    logger.lifecycle("  < done loading properties from gradle.properties...")
     logger.lifecycle("  > System properties listed only on level info")
         .also {
-            val propertyPairs = System.getProperties()
+            System.getProperties()
                 .map { Pair(it.key.toString(), it.value.toString()) }
                 .sortedBy { it.first }
-            val longestKey = propertyPairs.map { it.first.length }.max() ?: 0
-
-            propertyPairs.map { logger.info("    - ${it.first.padEnd(longestKey)} -> ${it.second}") }
+                .also { pairs: List<Pair<String, String>> ->
+                    val longestKey = pairs.map { it.first.length }.max() ?: 0
+                    pairs
+                        .forEach { logger.info("    - ${it.first.padEnd(longestKey)} -> ${it.second}") }
+                }
         }
 }

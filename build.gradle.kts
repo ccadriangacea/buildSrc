@@ -1,3 +1,5 @@
+logger.lifecycle("\n>>> Running build.gradle.kts in buildSrc\n")
+
 plugins {
     application
 
