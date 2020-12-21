@@ -23,9 +23,6 @@ val benManesVersionsPluginVersion: String by System.getProperties()
 val quarkusPluginVersion: String by System.getProperties()
 val shadowPluginVersion: String by System.getProperties()
 
-val jvmTargetVersion: String by System.getProperties()
-val kotlinApiVersion: String by System.getProperties()
-
 dependencies {
     // Kotlin plugin
     "implementation"("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinPluginVersion")

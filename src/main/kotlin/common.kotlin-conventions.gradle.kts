@@ -1,3 +1,4 @@
+import gradle.dependencies.Versions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,12 +7,6 @@ plugins {
     kotlin("jvm")
     // kotlin("kapt")
 }
-
-val kotlinVersion: String by System.getProperties()
-val coroutinesVersion: String by System.getProperties()
-
-val jvmTargetVersion: String by System.getProperties()
-val kotlinApiVersion: String by System.getProperties()
 
 repositories {
     mavenLocal()
@@ -40,27 +35,25 @@ kotlin {
 
 dependencies {
     // assure same version is loaded
-    "implementation"(platform("org.jetbrains.kotlin:kotlin-bom:$kotlinVersion"))
-    "implementation"(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutinesVersion"))
+    "implementation"(platform("org.jetbrains.kotlin:kotlin-bom:${Versions.kotlin}"))
+    "implementation"(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.kotlinCoroutines}"))
 
     // Junit
-    val junitVersion: String by System.getProperties()
-    "testImplementation"("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    "testImplementation"("org.junit.jupiter:junit-jupiter-params:$junitVersion")
-    "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    "testImplementation"("org.junit.jupiter:junit-jupiter-api:${Versions.Testing.junit}")
+    "testImplementation"("org.junit.jupiter:junit-jupiter-params:${Versions.Testing.junit}")
+    "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:${Versions.Testing.junit}")
 
     // AspectJ
-    val aspectJVersion: String by System.getProperties()
-    "testImplementation"("org.assertj:assertj-core:$aspectJVersion")
+    "testImplementation"("org.assertj:assertj-core:${Versions.Testing.aspectJ}")
 }
 
 tasks {
     withType<KotlinCompile>()
         .configureEach {
             kotlinOptions {
-                jvmTarget = jvmTargetVersion
-                apiVersion = kotlinApiVersion
-                languageVersion = kotlinApiVersion
+                jvmTarget = Versions.jvmTargetVersion
+                apiVersion = Versions.kotlinApi
+                languageVersion = Versions.kotlinApi
                 javaParameters = true
                 freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
             }

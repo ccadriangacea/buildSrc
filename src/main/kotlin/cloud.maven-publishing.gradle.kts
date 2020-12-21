@@ -1,8 +1,8 @@
+import gradle.dependencies.CurrentProject
+
 plugins {
     `maven-publish`
 }
 
-val projectVersion: String by System.getProperties()
-
-group = "de.codecentric"
-version = projectVersion
+group = CurrentProject.groupId
+version = CurrentProject.version
