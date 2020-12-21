@@ -15,10 +15,12 @@ pluginManagement {
     resolutionStrategy {
         val kotlinDslVersion: String by System.getProperties()
         eachPlugin {
-            logger.lifecycle(" > Adjusting plugin version for: ${this@eachPlugin.requested.id.id}")
+            logger.lifecycle(" > Checking if plugin version must be adjusted for: ${this@eachPlugin.requested.id.id}")
             when (this@eachPlugin.requested.id.id) {
-                "org.gradle.kotlin.kotlin-dsl" -> useVersion(kotlinDslVersion)
-                    .also { logger.lifecycle("   < Loading plugin: ${this@eachPlugin.requested.id} with version $kotlinDslVersion...") }
+                "org.gradle.kotlin.kotlin-dsl" -> if (kotlinDslVersion.isNotEmpty()) {
+                    useVersion(kotlinDslVersion)
+                        .also { logger.lifecycle("   < Loading plugin: ${this@eachPlugin.requested.id} with version $kotlinDslVersion...") }
+                }
             }
         }
     }
