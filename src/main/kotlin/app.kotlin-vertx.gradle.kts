@@ -1,9 +1,8 @@
+import gradle.dependencies.Versions
+
 plugins {
     id("common.kotlin-conventions")
 }
-
-val vertXVersion: String by System.getProperties()
-val nettyVersion: String by System.getProperties()
 
 // This makes sure the version of the dependencies are the ones configured in gradle.properties
 configurations.all {
@@ -11,14 +10,14 @@ configurations.all {
         eachDependency {
             when (this@eachDependency.requested.group) {
                 "io.vertx" -> {
-                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to vertXVersion))
-                    because("Vertx version $vertXVersion is latest")
-                    logVersionAdjustment(this@eachDependency.requested.toString(), vertXVersion)
+                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to Versions.Vertx.version))
+                    because("Vertx version ${Versions.Vertx.version} is latest")
+                    logVersionAdjustment(this@eachDependency.requested.toString(), Versions.Vertx.version)
                 }
                 "io.netty" -> {
-                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to nettyVersion))
-                    because("Netty version $nettyVersion is latest")
-                    logVersionAdjustment(this@eachDependency.requested.toString(), nettyVersion)
+                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to Versions.Vertx.nettyVersion))
+                    because("Netty version ${Versions.Vertx.nettyVersion} is latest")
+                    logVersionAdjustment(this@eachDependency.requested.toString(), Versions.Vertx.nettyVersion)
                 }
             }
         }
@@ -30,10 +29,6 @@ fun logVersionAdjustment(adjustingFor: String, adjustingTo: String) {
 }
 
 dependencies {
-    "api"("io.vertx:vertx-core:$vertXVersion")
-    "api"("io.vertx:vertx-lang-kotlin:$vertXVersion")
-    "api"("io.vertx:vertx-lang-kotlin-coroutines:$vertXVersion")
-
-    // Testing Vert.x
-    "testImplementation"("io.vertx:vertx-junit5:$vertXVersion")
+    Versions.Vertx.coreDependencies.forEach { "api"(it) }
+    Versions.Vertx.coreTestDependencies.forEach { "testImplementation"(it) }
 }

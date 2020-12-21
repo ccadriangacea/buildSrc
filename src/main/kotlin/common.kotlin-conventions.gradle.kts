@@ -6,6 +6,8 @@ plugins {
 
     kotlin("jvm")
     // kotlin("kapt")
+
+    id("testing.junit-conventions")
 }
 
 repositories {
@@ -35,16 +37,8 @@ kotlin {
 
 dependencies {
     // assure same version is loaded
-    "implementation"(platform("org.jetbrains.kotlin:kotlin-bom:${Versions.kotlin}"))
-    "implementation"(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.kotlinCoroutines}"))
-
-    // Junit
-    "testImplementation"("org.junit.jupiter:junit-jupiter-api:${Versions.Testing.junit}")
-    "testImplementation"("org.junit.jupiter:junit-jupiter-params:${Versions.Testing.junit}")
-    "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:${Versions.Testing.junit}")
-
-    // AspectJ
-    "testImplementation"("org.assertj:assertj-core:${Versions.Testing.aspectJ}")
+    "implementation"(platform(Versions.Kotlin.kotlinBom))
+    "implementation"(platform(Versions.Kotlin.kotlinCoroutinesBom))
 }
 
 tasks {
@@ -61,13 +55,4 @@ tasks {
 
     findByName("clean")
         .apply { this?.doLast { delete(project.projectDir.toPath().resolve("out").toFile().absolutePath) } }
-
-    withType(Test::class) {
-        useJUnitPlatform()
-        exclude("**/Native*")
-    }
-
-    test {
-        useJUnitPlatform()
-    }
 }
