@@ -5,7 +5,7 @@ plugins {
     application
 
     kotlin("jvm")
-    // kotlin("kapt")
+    kotlin("kapt")
 
     id("testing.junit-conventions")
 }

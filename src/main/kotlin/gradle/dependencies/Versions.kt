@@ -49,9 +49,7 @@ object Versions {
 
         const val mongodbDepdendencies = "io.vertx:vertx-mongo-client:$version"
 
-        val coreTestDependencies: List<String> = listOf(
-            "io.vertx:vertx-junit5:$version"
-        )
+        const val coreTestDependencies = "io.vertx:vertx-junit5:$version"
     }
 
     object Koin {

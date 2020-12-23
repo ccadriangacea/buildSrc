@@ -30,5 +30,9 @@ fun logVersionAdjustment(adjustingFor: String, adjustingTo: String) {
 
 dependencies {
     Versions.Vertx.coreDependencies.forEach { "api"(it) }
-    Versions.Vertx.coreTestDependencies.forEach { "testImplementation"(it) }
+
+    "api"("io.vertx:vertx-codegen:${Versions.Vertx.version}")
+    "kapt"("io.vertx:vertx-codegen:${Versions.Vertx.version}")
+
+    "testImplementation"(Versions.Vertx.coreTestDependencies)
 }
