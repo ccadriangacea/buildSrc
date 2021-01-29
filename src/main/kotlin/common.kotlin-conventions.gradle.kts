@@ -1,4 +1,4 @@
-import gradle.dependencies.Versions
+import gradle.dependencies.CoreVersions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -37,22 +37,22 @@ kotlin {
 
 dependencies {
     // assure same version is loaded
-    "implementation"(platform(Versions.Kotlin.kotlinBom))
-    "implementation"(platform(Versions.Kotlin.kotlinCoroutinesBom))
+    "implementation"(platform(CoreVersions.Kotlin.kotlinBom))
+    "implementation"(platform(CoreVersions.Kotlin.kotlinCoroutinesBom))
 }
 
 tasks {
     withType<KotlinCompile>()
         .configureEach {
             kotlinOptions {
-                jvmTarget = Versions.jvmTargetVersion
-                apiVersion = Versions.kotlinApi
-                languageVersion = Versions.kotlinApi
+                jvmTarget = CoreVersions.jvmTargetVersion
+                apiVersion = CoreVersions.kotlinApi
+                languageVersion = CoreVersions.kotlinApi
                 javaParameters = true
                 freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
             }
         }
 
     findByName("clean")
-        .apply { this?.doLast { delete(project.projectDir.toPath().resolve("out").toFile().absolutePath) } }
+        .apply { this?.doLast { delete(projectDir.toPath().resolve("out").toFile().absolutePath) } }
 }

@@ -1,4 +1,5 @@
-import gradle.dependencies.Versions
+import gradle.dependencies.CoreVersions.Vertx
+import gradle.dependencies.import
 
 plugins {
     id("common.kotlin-conventions")
@@ -10,14 +11,14 @@ configurations.all {
         eachDependency {
             when (this@eachDependency.requested.group) {
                 "io.vertx" -> {
-                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to Versions.Vertx.version))
-                    because("Vertx version ${Versions.Vertx.version} is latest")
-                    logVersionAdjustment(this@eachDependency.requested.toString(), Versions.Vertx.version)
+                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to Vertx.version))
+                    because("Vertx version ${Vertx.version} is latest")
+                    logVersionAdjustment(this@eachDependency.requested.toString(), Vertx.version)
                 }
                 "io.netty" -> {
-                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to Versions.Vertx.nettyVersion))
-                    because("Netty version ${Versions.Vertx.nettyVersion} is latest")
-                    logVersionAdjustment(this@eachDependency.requested.toString(), Versions.Vertx.nettyVersion)
+                    useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to Vertx.nettyVersion))
+                    because("Netty version ${Vertx.nettyVersion} is latest")
+                    logVersionAdjustment(this@eachDependency.requested.toString(), Vertx.nettyVersion)
                 }
             }
         }
@@ -29,10 +30,10 @@ fun logVersionAdjustment(adjustingFor: String, adjustingTo: String) {
 }
 
 dependencies {
-    Versions.Vertx.coreDependencies.forEach { "api"(it) }
+    Vertx.coreDependencies.import("api", this)
 
-    "api"("io.vertx:vertx-codegen:${Versions.Vertx.version}")
-    "kapt"("io.vertx:vertx-codegen:${Versions.Vertx.version}")
+    Vertx.codegenDependencies.import("api", this)
+    Vertx.codegenKaptDependencies.import("kapt", this)
 
-    "testImplementation"(Versions.Vertx.coreTestDependencies)
+    Vertx.coreTestDependencies.import("testImplementation", this)
 }

@@ -1,8 +1,8 @@
-import gradle.dependencies.CurrentProject
+import gradle.dependencies.ProjectRegenesisVersions
 
 plugins {
     `maven-publish`
 }
 
-group = CurrentProject.groupId
-version = CurrentProject.version
+group = ProjectRegenesisVersions.groupId
+version = ProjectRegenesisVersions.version
