@@ -5,7 +5,6 @@ plugins {
     application
 
     kotlin("jvm")
-    kotlin("kapt")
 
     id("testing.junit-conventions")
 }
@@ -49,7 +48,7 @@ tasks {
                 apiVersion = CoreVersions.kotlinApi
                 languageVersion = CoreVersions.kotlinApi
                 javaParameters = true
-                freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+                freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn" + "-Xinline-classes"
             }
         }
 

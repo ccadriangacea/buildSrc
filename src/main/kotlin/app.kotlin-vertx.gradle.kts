@@ -33,7 +33,6 @@ dependencies {
     Vertx.coreDependencies.import("api", this)
 
     Vertx.codegenDependencies.import("api", this)
-    Vertx.codegenKaptDependencies.import("kapt", this)
 
     Vertx.coreTestDependencies.import("testImplementation", this)
 }
