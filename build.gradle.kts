@@ -20,7 +20,6 @@ repositories {
 val kotlinPluginVersion: String by System.getProperties()
 val benManesVersionsPluginVersion: String by System.getProperties()
 
-val quarkusPluginVersion: String by System.getProperties()
 val shadowPluginVersion: String by System.getProperties()
 
 dependencies {
@@ -29,10 +28,6 @@ dependencies {
 
     // Dependencies update
     "implementation"("com.github.ben-manes:gradle-versions-plugin:$benManesVersionsPluginVersion")
-
-    // Quarkus plugin + dependencies
-    "implementation"("gradle.plugin.io.quarkus:quarkus-gradle-plugin:$quarkusPluginVersion")
-    "implementation"("org.jetbrains.kotlin.plugin.allopen:org.jetbrains.kotlin.plugin.allopen.gradle.plugin:$kotlinPluginVersion")
 
     // ShadowJar
     "implementation"("com.github.jengelman.gradle.plugins:shadow:$shadowPluginVersion")

@@ -4,6 +4,8 @@ rootProject.name = "buildSrc"
 
 pluginManagement {
     repositories {
+        mavenLocal()
+        mavenCentral()
         gradlePluginPortal()
     }
 }

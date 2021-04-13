@@ -5,7 +5,7 @@ object CoreVersions {
     const val jvmTargetVersion = "11"
 
     object Kotlin {
-        const val kotlinVersion = "1.4.21"
+        const val kotlinVersion = "1.4.30"
         private const val kotlinCoroutinesVersion = "1.4.2"
 
         const val kotlinBom = "org.jetbrains.kotlin:kotlin-bom:$kotlinVersion"
@@ -17,75 +17,117 @@ object CoreVersions {
     }
 
     object Vertx {
-        const val version = "4.0.0"
-        const val nettyVersion = "4.1.54.Final"
-        const val jsonVersion = "2.12.0-rc2"
+        const val vertxVersion = "4.0.2"
+        const val nettyVersion = "4.1.59.Final"
+        const val jsonVersion = "2.12.1"
+        private val hazelcastKubernetesVersion = "2.2.1"
+        private val igniteVersion = "2.9.1"
 
         val coreDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-core:$version",
-            "io.vertx:vertx-lang-kotlin:$version",
-            "io.vertx:vertx-lang-kotlin-coroutines:$version"
+            "io.vertx:vertx-core:$vertxVersion",
+            "io.vertx:vertx-lang-kotlin:$vertxVersion",
+            "io.vertx:vertx-lang-kotlin-coroutines:$vertxVersion"
         )
 
         val configDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-config:$version",
+            "io.vertx:vertx-config:$vertxVersion",
             "com.fasterxml.jackson.module:jackson-module-kotlin:$jsonVersion",
-            "com.fasterxml.jackson.module:jackson-module-paranamer:$jsonVersion"
+            "com.fasterxml.jackson.module:jackson-module-paranamer:$jsonVersion",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jsonVersion"
         )
 
         val codegenDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-codegen:$version"
+            "io.vertx:vertx-codegen:$vertxVersion"
         )
         val codegenKaptDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-codegen:$version"
+            "io.vertx:vertx-codegen:$vertxVersion"
         )
 
         val jwtDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-auth-common:$version",
-            "io.vertx:vertx-auth-jwt:$version"
+            "io.vertx:vertx-auth-common:$vertxVersion",
+            "io.vertx:vertx-auth-jwt:$vertxVersion"
         )
 
         val mongodbDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-mongo-client:$version"
+            "io.vertx:vertx-mongo-client:$vertxVersion"
         )
 
         val oauth2Dependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-auth-common:$version",
-            "io.vertx:vertx-auth-oauth2:$version"
+            "io.vertx:vertx-auth-common:$vertxVersion",
+            "io.vertx:vertx-auth-oauth2:$vertxVersion"
         )
 
         val serviceDiscoveryDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-service-discovery:$version"
+            "io.vertx:vertx-service-discovery:$vertxVersion"
         )
 
         val webDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-web:$version"
+            "io.vertx:vertx-web:$vertxVersion"
         )
 
         val webClientDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-web-client:$version"
+            "io.vertx:vertx-web-client:$vertxVersion"
+        )
+
+        val hazelcastDependencies: ProjectDependencies = linkedSetOf(
+            "io.vertx:vertx-hazelcast:$vertxVersion",
+            "com.hazelcast:hazelcast-kubernetes:$hazelcastKubernetesVersion"
+        )
+
+        val igniteDependencies: ProjectDependencies = linkedSetOf(
+            "io.vertx:vertx-ignite:$vertxVersion",
+            "org.apache.ignite:ignite-slf4j:$igniteVersion"
+        )
+
+        val zookeeperDependencies: ProjectDependencies = linkedSetOf(
+            "io.vertx:vertx-zookeeper:$vertxVersion"
         )
 
         val coreTestDependencies: ProjectDependencies = linkedSetOf(
-            "io.vertx:vertx-junit5:$version"
+            "io.vertx:vertx-junit5:$vertxVersion"
         )
     }
 
     object Koin {
-        const val version = "2.2.0-rc-4"
+        const val version = "2.2.1"
 
         val coreDependencies: ProjectDependencies = linkedSetOf("org.koin:koin-core:$version")
         val testDependencies: ProjectDependencies = linkedSetOf("org.koin:koin-test:$version")
     }
 
     object Logger {
-        const val log4j = "2.14.0"
-        const val kotlinLogging = "2.0.3"
+        private const val slf4jVersion = "1.7.30"
+        private const val log4jVersion = "2.14.0"
+        private const val kotlinLogging = "2.0.4"
+
+        val kotlinLoggingDependencies: ProjectDependencies = linkedSetOf(
+            "io.github.microutils:kotlin-logging-jvm:$kotlinLogging",
+            "org.slf4j:slf4j-api:$slf4jVersion",
+            "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion"
+        )
+    }
+
+    object Quarkus {
+        const val quarkusVersion = "1.11.3.Final"
+        const val quarkusBom = "io.quarkus:quarkus-bom:$quarkusVersion"
+
+        val quarkusDependencies = linkedSetOf(
+            "io.quarkus:quarkus-arc",
+            "io.quarkus:quarkus-kotlin",
+            "io.quarkus:quarkus-resteasy",
+            "io.quarkus:quarkus-resteasy-jackson",
+            "io.quarkus:quarkus-vertx"
+        )
+
+        val quarkusTestDependencies = linkedSetOf(
+            "io.quarkus:quarkus-junit5",
+            "io.rest-assured:rest-assured"
+        )
     }
 
     object Testing {
         const val junitVersion = "5.7.0"
-        const val aspectJVersion = "3.18.1"
+        const val aspectJVersion = "3.19.0"
 
         val junitDependencies: ProjectDependencies = linkedSetOf(
             "org.junit.jupiter:junit-jupiter-api:$junitVersion",

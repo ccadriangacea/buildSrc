@@ -2,7 +2,7 @@ package gradle.dependencies
 
 object LibrariesVersions {
     object Camel {
-        const val camelVersion = "3.7.1"
+        const val camelVersion = "3.7.2"
 
         val coreDependencies: ProjectDependencies = linkedSetOf(
             "org.apache.camel:camel-core:$camelVersion",

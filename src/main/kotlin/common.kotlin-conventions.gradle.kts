@@ -1,8 +1,10 @@
 import gradle.dependencies.CoreVersions
+import gradle.dependencies.CoreVersions.Kotlin
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     application
+    java
 
     kotlin("jvm")
 
@@ -13,6 +15,19 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
+}
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (this@eachDependency.requested.group.toString() == "org.jetbrains.kotlin"
+                && this@eachDependency.requested.version.toString() != Kotlin.kotlinVersion
+            ) {
+                useTarget(mapOf("group" to requested.group, "name" to requested.name, "version" to Kotlin.kotlinVersion))
+                because("Kotlin version ${Kotlin.kotlinVersion} is latest; lets sync all to this")
+            }
+        }
+    }
 }
 
 kotlin {
@@ -36,8 +51,8 @@ kotlin {
 
 dependencies {
     // assure same version is loaded
-    "implementation"(platform(CoreVersions.Kotlin.kotlinBom))
-    "implementation"(platform(CoreVersions.Kotlin.kotlinCoroutinesBom))
+    "implementation"(platform(Kotlin.kotlinBom))
+    "implementation"(platform(Kotlin.kotlinCoroutinesBom))
 }
 
 tasks {
