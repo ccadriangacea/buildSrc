@@ -26,10 +26,20 @@ object LibrariesVersions {
         )
     }
 
+    object Databases {
+        private const val arangodbVersion = "6.12.1"
+        private const val arangoJacksonVelocypackVersion = "2.0.0"
+
+        val arangodbDependencies: ProjectDependencies = linkedSetOf(
+            "com.arangodb:arangodb-java-driver:$arangodbVersion",
+            "com.arangodb:jackson-dataformat-velocypack:$arangoJacksonVelocypackVersion"
+        )
+    }
+
     object Nats {
         const val version = "2.8.0"
 
-        const val conscryptOpenjdkVersion = "2.5.1"
+        private const val conscryptOpenjdkVersion = "2.5.1"
         val coreDependencies: ProjectDependencies = linkedSetOf(
             "org.conscrypt:conscrypt-openjdk-uber:$conscryptOpenjdkVersion",
             "io.nats:jnats:$version"

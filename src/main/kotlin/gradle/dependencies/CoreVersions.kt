@@ -5,8 +5,8 @@ object CoreVersions {
     const val jvmTargetVersion = "11"
 
     object Kotlin {
-        const val kotlinVersion = "1.4.30"
-        private const val kotlinCoroutinesVersion = "1.4.2"
+        const val kotlinVersion = "1.4.32"
+        private const val kotlinCoroutinesVersion = "1.4.3"
 
         const val kotlinBom = "org.jetbrains.kotlin:kotlin-bom:$kotlinVersion"
         const val kotlinCoroutinesBom = "org.jetbrains.kotlinx:kotlinx-coroutines-bom:$kotlinCoroutinesVersion"
